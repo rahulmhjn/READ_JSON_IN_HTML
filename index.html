@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+
+    <title>Resume</title>
+
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="The Curriculum Vitae of Joe Bloggs." />
+    <meta charset="UTF-8" />
+
+    <link type="text/css" rel="stylesheet" href="style.css" />
+    <link
+      href="http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body id="top">
+    <div id="cv" class="instaFade">
+      <div class="mainDetails">
+        <div id="name">
+          <h1 class="quickFade delayTwo"></h1>
+          <h2 class="quickFade delayThree"></h2>
+        </div>
+
+        <div id="contactDetails" class="quickFade delayFour">
+          <ul>
+            <li id="address"></li>
+            <!-- <li>w: <a href="http://www.bloggs.com">www.bloggs.com</a></li> -->
+            <li id="ph-no"></li>
+          </ul>
+        </div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="mainArea" class="quickFade delayFive">
+        <section>
+          <div class="sectionTitle">
+            <h1>Work Experience</h1>
+          </div>
+
+          <div class="sectionContent" id="experience"></div>
+          <div class="clear"></div>
+        </section>
+
+        <section>
+          <div class="sectionTitle">
+            <h1>Education</h1>
+          </div>
+
+          <div class="sectionContent" id="education"></div>
+          <div class="clear"></div>
+        </section>
+
+        <section>
+          <div class="sectionTitle">
+            <h1>Key Skills</h1>
+          </div>
+
+          <div class="sectionContent">
+            <ul class="keySkills" id="skills"></ul>
+          </div>
+          <div class="clear"></div>
+        </section>
+
+        <section>
+          <div class="sectionTitle">
+            <h1>Languages</h1>
+          </div>
+
+          <div class="sectionContent">
+            <ul class="keySkills" id="lang"></ul>
+          </div>
+          <div class="clear"></div>
+        </section>
+      </div>
+    </div>
+    <script>
+      fetch("./db.json").then((res) => {
+        res.json().then((data) => {
+          // Person Details
+          document.querySelector("#name h1").innerHTML =
+            data.data.Person.first_name;
+          document.querySelector("#name h2").innerHTML =
+            data.data.Person.last_name;
+          document.querySelector("#ph-no").innerHTML =
+            "m: " + data.data.Person.contact_no || null;
+          document.querySelector("#address").innerHTML =
+            "Address: " + data.data.Person.address || null;
+
+          // Experience Details
+          var exp = data.data.Experience;
+          var temp = "";
+
+          exp.forEach((e) => {
+            console.log(e);
+            temp += "<article>";
+            temp +=
+              "<h2>" +
+              e.designation.charAt(0).toUpperCase() +
+              e.designation.slice(1) +
+              " at " +
+              e.organization_name +
+              "</h2>";
+            if (e.on_going === true || e.end_date == null)
+              temp +=
+                "<p class='subDetails'>" +
+                e.start_date.split("T")[0] +
+                " - Present </p>";
+            else
+              temp +=
+                "<p class='subDetails'>" +
+                e.start_date +
+                " - " +
+                (e.end_date || null) +
+                "</p>";
+
+            if (e.description) temp += "<p>" + e.description || +"</p>";
+
+            temp += "</article>";
+          });
+          document.getElementById("experience").innerHTML = temp;
+
+          // Education
+          var edu = data.data.education;
+          var temp = "";
+          edu.forEach((u) => {
+            temp += "<article>";
+            temp +=
+              "<h2>" +
+              u.school.school_name.charAt(0).toUpperCase() +
+              u.school.school_name.slice(1) +
+              " ," +
+              u.school.school_city.charAt(0).toUpperCase() +
+              u.school.school_city.slice(1) +
+              "</h2>";
+            var end_date = u.school.end_year;
+            if (end_date !== null) {
+              end_date = end_date.split("T")[0];
+            }
+
+            temp +=
+              "<p class='subDetails'>" +
+              u.school.starting_year.split("T")[0] +
+              " - " +
+              (end_date || "Present") +
+              "</p>";
+            temp +=
+              "<p class='subDetails'>" +
+              "Classes: " +
+              u.school.starting_class +
+              " - " +
+              (u.school.end_class || "Present") +
+              "</p>";
+            u.school.grade.forEach((x) => {
+              temp += "<p class='subDetails'>Grade: " + x.grade + "</p>";
+              temp +=
+                "<table class='table table-stripped'> <thead> <tr> <th>Subject</th> <th>Marks</th> <th>Grade</th> </tr> </thead> <tbody>";
+              x.subjects.forEach((s) => {
+                temp +=
+                  "<tr> <td>" +
+                  s.name +
+                  "</td> <td>" +
+                  s.marks +
+                  "</td> <td>" +
+                  s.grade +
+                  "</td> </tr>";
+              });
+              temp += "</tbody> </table>";
+            });
+            temp += "</article>";
+          });
+          document.getElementById("education").innerHTML = temp;
+
+          // Skills
+          var skills = data.data.Skills;
+          var text = "";
+          skills.forEach((k) => {
+            text += "<li>" + k.title + "</li>";
+          });
+          document.getElementById("skills").innerHTML = text;
+
+          // Languages
+          var languages = data.data.Languages;
+          var text = "";
+          languages.forEach((k) => {
+            text += "<li>" + k.language + "(" + k.level + ")</li>";
+          });
+          document.getElementById("lang").innerHTML = text;
+        });
+      });
+    </script>
+    <script type="text/javascript">
+      var gaJsHost =
+        "https:" == document.location.protocol ? "https://ssl." : "http://www.";
+      document.write(
+        unescape(
+          "%3Cscript src='" +
+            gaJsHost +
+            "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"
+        )
+      );
+    </script>
+    <script type="text/javascript">
+      var pageTracker = _gat._getTracker("UA-3753241-1");
+      pageTracker._initData();
+      pageTracker._trackPageview();
+    </script>
+  </body>
+</html>

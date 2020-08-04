@@ -1,0 +1,142 @@
+{
+  "status": true,
+  "data": {
+    "Person": {
+      "first_name": "Sandeep",
+      "last_name": "Chauhan",
+      "contact_no": 3423234234234,
+      "address": "hnm. 23 sec.54 delhi ncr",
+      "cv_id": 1
+    },
+    "Experience": [
+      {
+        "organization_name": "Eoraa",
+        "designation": "developer",
+        "start_date": "2020-07-25T13:19:59.941699Z",
+        "end_date": null,
+        "on_going": true,
+        "description": null,
+        "cv_id": 1
+      },
+      {
+        "organization_name": "ABC Company",
+        "designation": "developer",
+        "start_date": "2020-07-25T13:19:59.941699Z",
+        "end_date": null,
+        "on_going": true,
+        "description": null,
+        "cv_id": 1
+      }
+    ],
+    "education": [
+      {
+        "school": {
+          "id": 8,
+          "school_name": "sarang",
+          "school_city": "seohara",
+          "starting_year": "2020-07-25T13:19:59.941699Z",
+          "starting_class": "5",
+          "end_year": null,
+          "on_going": false,
+          "end_class": "9",
+          "cv_id": 1,
+          "grade": [
+            {
+              "id": 5,
+              "grade": "9",
+              "school": 8,
+              "subjects": [
+                {
+                  "id": 7,
+                  "name": "Maths",
+                  "marks": "55",
+                  "grade": 5
+                },
+                {
+                  "id": 8,
+                  "name": "Science",
+                  "marks": "65",
+                  "grade": 5
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "school": {
+          "id": 9,
+          "school_name": "sarang1",
+          "school_city": "seohara1",
+          "starting_year": "2002-07-25T13:19:59.941699Z",
+          "starting_class": "5",
+          "end_year": "2005-07-25T13:19:59.941699Z",
+          "on_going": false,
+          "end_class": "10",
+          "cv_id": 1,
+          "grade": [
+            {
+              "id": 6,
+              "grade": "10",
+              "school": 9,
+              "subjects": [
+                {
+                  "id": 9,
+                  "name": "Maths",
+                  "marks": "50",
+                  "grade": 6
+                },
+                {
+                  "id": 10,
+                  "name": "Science",
+                  "marks": "60",
+                  "grade": 6
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "Skills": [
+      {
+        "id": 2,
+        "title": "Python",
+        "detail": null,
+        "cv_id": 1
+      },
+      {
+        "id": 3,
+        "title": "C",
+        "detail": null,
+        "cv_id": 1
+      },
+      {
+        "id": 4,
+        "title": "JavaScript",
+        "detail": null,
+        "cv_id": 1
+      },
+      {
+        "id": 5,
+        "title": "Java",
+        "detail": null,
+        "cv_id": 1
+      }
+    ],
+    "Languages": [
+      {
+        "id": 1,
+        "language": "English",
+        "level": "fluent",
+        "cv_id": 1
+      },
+      {
+        "id": 2,
+        "language": "Japanese",
+        "level": "fluent",
+        "cv_id": 1
+      }
+    ]
+  }
+}
